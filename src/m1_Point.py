@@ -10,9 +10,9 @@ Authors: David Mutchler, Vibha Alangar, Dave Fisher, Amanda Stouder,
 def main():
     """ Calls the   TEST   functions in this module. """
     run_test_init()
-    # run_test_repr()
-    # run_test_clone()
-    # run_test_move_to()
+    run_test_repr()
+    run_test_clone()
+    run_test_move_to()
     # run_test_move_by()
     # run_test_get_number_of_moves_made()
     # run_test_get_distance_from()
@@ -49,6 +49,16 @@ class Point(object):
     def __init__(self, x, y):
         self.x = x
         self.y = y
+    def __repr__(self):
+        value = 'Point(' + str(self.x) + ' ' + str(self.y) + ')'
+        return value
+    def clone(self):
+        new = Point(self.x , self.y)
+        return new
+    def move_to(self, x, y):
+        old = Point(self.x , self.y)
+        new = Point(old.x + x, old.y + y)
+        return new
 
 def run_test_init():
     """
@@ -97,7 +107,7 @@ def run_test_init():
         print('Actual for p2:  ', p2.x, p2.y)
     """
     # -------------------------------------------------------------------------
-    # TODO: 3.
+    # DONE: 3.
     #   a. Read the above specification of the   __init__   method.
     #        Do NOT proceed until you understand WHAT it should do
     #        (but not necessarily HOW it will do it).
@@ -188,7 +198,7 @@ def run_test_repr():
         print('Actual for p2:  ', p2)
     """
     # -------------------------------------------------------------------------
-    # TODO: 4.  Follow the same instructions as in _TODO_ 3 above,
+    # DONE: 4.  Follow the same instructions as in _TODO_ 3 above,
     #           but for the  __repr__  method specified above.
     # -------------------------------------------------------------------------
     print()
@@ -267,7 +277,7 @@ def run_test_clone():
         print('Actual for p3:  ', p3)
    """
     # -------------------------------------------------------------------------
-    # TODO: 5.  Follow the same instructions as in _TODO_ 3 above,
+    # DONE: 5.  Follow the same instructions as in _TODO_ 3 above,
     #           but for the  clone  method specified above.
     # -------------------------------------------------------------------------
     print()
@@ -275,41 +285,41 @@ def run_test_clone():
     print('Testing the   clone   method of the Point class.')
     print('-----------------------------------------------------------')
 
-    # p1 = Point(10, 8)
-    # print()
-    # print('Expected for p1: Point(10, 8)')
-    # print('Actual for p1:  ', p1)
-    #
-    # p2 = p1.clone()
-    # p3 = p2.clone()
-    # print()
-    # print('Expected for p1: Point(10, 8)')
-    # print('Actual for p1:  ', p1)
-    # print('Expected for p2: Point(10, 8)')
-    # print('Actual for p2:  ', p2)
-    # print('Expected for p3: Point(10, 8)')
-    # print('Actual for p3:  ', p3)
-    #
-    # p1.x = 999
-    # print()
-    # print('Expected for p1: Point(999, 8)')
-    # print('Actual for p1:  ', p1)
-    # print('Expected for p2: Point(10, 8)')
-    # print('Actual for p2:  ', p2)
-    # print('Expected for p3: Point(10, 8)')
-    # print('Actual for p3:  ', p3)
-    #
-    # p1.y = 333
-    # p2 = Point(11, 22)
-    # p3.x = 777
-    # p3.y = 555
-    # print()
-    # print('Expected for p1: Point(999. 333)')
-    # print('Actual for p1:  ', p1)
-    # print('Expected for p2: Point(11, 22)')
-    # print('Actual for p2:  ', p2)
-    # print('Expected for p3: Point(777, 555)')
-    # print('Actual for p3:  ', p3)
+    p1 = Point(10, 8)
+    print()
+    print('Expected for p1: Point(10, 8)')
+    print('Actual for p1:  ', p1)
+
+    p2 = p1.clone()
+    p3 = p2.clone()
+    print()
+    print('Expected for p1: Point(10, 8)')
+    print('Actual for p1:  ', p1)
+    print('Expected for p2: Point(10, 8)')
+    print('Actual for p2:  ', p2)
+    print('Expected for p3: Point(10, 8)')
+    print('Actual for p3:  ', p3)
+
+    p1.x = 999
+    print()
+    print('Expected for p1: Point(999, 8)')
+    print('Actual for p1:  ', p1)
+    print('Expected for p2: Point(10, 8)')
+    print('Actual for p2:  ', p2)
+    print('Expected for p3: Point(10, 8)')
+    print('Actual for p3:  ', p3)
+
+    p1.y = 333
+    p2 = Point(11, 22)
+    p3.x = 777
+    p3.y = 555
+    print()
+    print('Expected for p1: Point(999. 333)')
+    print('Actual for p1:  ', p1)
+    print('Expected for p2: Point(11, 22)')
+    print('Actual for p2:  ', p2)
+    print('Expected for p3: Point(777, 555)')
+    print('Actual for p3:  ', p3)
 
 def run_test_move_to():
     """
