@@ -13,13 +13,13 @@ def main():
     run_test_repr()
     run_test_clone()
     run_test_move_to()
-    # run_test_move_by()
-    # run_test_get_number_of_moves_made()
-    # run_test_get_distance_from()
-    # run_test_get_distance_from_start()
-    # run_test_get_distance_traveled()
-    # run_test_closer_to()
-    # run_test_halfway_to()
+    run_test_move_by()
+    run_test_get_number_of_moves_made()
+    run_test_get_distance_from()
+    run_test_get_distance_from_start()
+    run_test_get_distance_traveled()
+    run_test_closer_to()
+    run_test_halfway_to()
 
 ###############################################################################
 # IMPORTANT:
@@ -49,16 +49,67 @@ class Point(object):
     def __init__(self, x, y):
         self.x = x
         self.y = y
+        self.move = 0
+        self.startx = x
+        self.starty = y
+        self.distance = 0
+
     def __repr__(self):
         value = 'Point(' + str(self.x) + ' ' + str(self.y) + ')'
         return value
+
     def clone(self):
         new = Point(self.x , self.y)
         return new
+
     def move_to(self, x, y):
-        old = Point(self.x , self.y)
-        new = Point(old.x + x, old.y + y)
-        return new
+        self.distance = self.distance + (((self.x - x) ** 2 + (self.y - y) ** 2) ** (1 / 2))
+        self.x = x
+        self.y = y
+        point = Point(self.x, self.y)
+        self.move = self.move + 1
+        return point
+
+    def move_by(self, dx, dy):
+        self.distance = self.distance + ((dx ** 2 + dy ** 2) **(1/2))
+        self.x = self.x + dx
+        self.y = self.y + dy
+        point = Point(self.x, self.y)
+        self.move = self.move + 1
+        return point
+
+    def get_number_of_moves_made(self):
+        return self.move
+
+    def get_distance_from(self, point):
+        rise = self.y - point.y
+        run = self.x - point.x
+        distance = (rise ** 2 + run ** 2) ** (1/2)
+        return distance
+
+    def get_distance_from_start(self):
+        rise = self.y - self.starty
+        run = self.x - self.startx
+        distance = (rise ** 2 + run ** 2) ** (1/2)
+        return distance
+
+    def get_distance_traveled(self):
+        return self.distance
+
+    def closer_to(self, p2, p3):
+        d1 = self.get_distance_from(p2)
+        d2 = self.get_distance_from(p3)
+        if d1 <= d2:
+            return p2
+        else:
+            return p3
+
+    def halfway_to(self, p2):
+
+        x = (self.x + p2.x) / 2
+        y = (self.y + p2.y) / 2
+        halfway = Point(x, y)
+        return halfway
 
 def run_test_init():
     """
@@ -374,7 +425,7 @@ def run_test_move_to():
             print('** value; in fact, it returned:', check_has_no_return)
     """
     # -------------------------------------------------------------------------
-    # TODO: 6.  Follow the same instructions as in _TODO_ 3 above,
+    # DONE: 6.  Follow the same instructions as in _TODO_ 3 above,
     #           but for the  move_to  method specified above.
     # -------------------------------------------------------------------------
     print()
@@ -469,7 +520,7 @@ def run_test_move_by():
             print('** value; in fact, it returned:', check_has_no_return)
         """
     # -------------------------------------------------------------------------
-    # TODO: 7.  Follow the same instructions as in _TODO_ 3 above,
+    # DONE: 7.  Follow the same instructions as in _TODO_ 3 above,
     #           but for the  move_by  method specified above.
     # -------------------------------------------------------------------------
     print()
@@ -577,7 +628,7 @@ def run_test_get_number_of_moves_made():
         print('Actual for p2 moves made:  ', p2.get_number_of_moves_made())
     """
     # -------------------------------------------------------------------------
-    # TODO: 8.  Follow the same instructions as in _TODO_ 3 above,
+    # DONE: 8.  Follow the same instructions as in _TODO_ 3 above,
     #    but for the  get_number_of_moves_made  method specified above.
     # DONE (continued):  HINT: What must a Point REMEMBER for this method?
     # -------------------------------------------------------------------------
@@ -694,7 +745,7 @@ def run_test_get_distance_from():
         print('Actual   p2 to p4:', p2.get_distance_from(p4))
     """
     # -------------------------------------------------------------------------
-    # TODO: 9.  Follow the same instructions as in _TODO_ 3 above,
+    # DONE: 9.  Follow the same instructions as in _TODO_ 3 above,
     #    but for the  get_distance_from  method specified above.
     # -------------------------------------------------------------------------
     print()
@@ -788,7 +839,7 @@ def run_test_get_distance_from_start():
         print('Actually is:', p2.get_distance_from_start())
     """
     # -------------------------------------------------------------------------
-    # TODO: 10.  Follow the same instructions as in _TODO_ 3 above,
+    # DONE: 10.  Follow the same instructions as in _TODO_ 3 above,
     #    but for the  get_distance_from_START  method specified above.
     # -------------------------------------------------------------------------
     print()
@@ -871,7 +922,7 @@ def run_test_get_distance_traveled():
         print('Actual:', p4.get_distance_traveled())
     """
     # -------------------------------------------------------------------------
-    # TODO: 11.  Follow the same instructions as in _TODO_ 3 above,
+    # DONE: 11.  Follow the same instructions as in _TODO_ 3 above,
     #    but for the  get_distance_traveled  method specified above.
     # -------------------------------------------------------------------------
     print()
@@ -1038,7 +1089,7 @@ def run_test_halfway_to():
 
     """
     # -------------------------------------------------------------------------
-    # TODO: 13.  Follow the same instructions as in TO-DO 3 above,
+    # DONE: 13.  Follow the same instructions as in TO-DO 3 above,
     #    but for the  halfway_to  method specified above.
     # -------------------------------------------------------------------------
     print()
